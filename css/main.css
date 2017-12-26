@@ -9,7 +9,9 @@ html {
     line-height: 24px;
     font-family: Roboto, sans-serif;
 }
-
+h2{
+    color: cadetblue;
+}
 header {
     background-color: hsl(200, 30%, 50%);
     color: #fff;
@@ -118,7 +120,8 @@ header h1 {
 
 .contactform {
     position: fixed;
-    display: none;
+     transform: translateX(-200%);
+    transition: transform 1s;
     z-index: 200;
     width: 80vw;
     height: 40vh;
@@ -128,6 +131,10 @@ header h1 {
     box-shadow: 2px 2px 12px hsl(0, 0%, 0%);
     padding: 2rem;
     text-align: center;
+}
+.contactform.active {
+     transform: translateX(0);
+    transition: transform 0, 5s;
 }
 .contactform input{
     width: 80%;
@@ -147,4 +154,15 @@ header h1 {
     float: right;
         margin-right: 4rem;
        
+}
+.error{
+    color: red;
+    padding: .3rem;
+    text-shadow:0 0 1px;
+     transform: translateX(-400%);
+      transition: transform 0, 5s;
+}
+.error.active{
+     transform: translateX(0);
+   
 }

@@ -83,9 +83,10 @@ const createItem = function (contact) {
 
 const showForm = function (ev) {
     ev.preventDefault();
+    hideFormError();
     document.querySelector('main').style.opacity = '0';
     document.querySelector('.fab').style.opacity = '0';
-    document.querySelector('.contactform').style.display = 'block';
+   document.querySelector('.contactform').classList.add('active');
     document.querySelector('.overlay').style.display = 'block';
 
 }
@@ -95,7 +96,7 @@ const hideForm = function (ev) {
     ev.preventDefault();
     document.querySelector('main').style.opacity = '1';
     document.querySelector('.fab').style.opacity = '1';
-    document.querySelector('.contactform').style.display = 'none';
+    document.querySelector('.contactform').classList.remove('active');
     document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.contactform form').reset();
     document.querySelector('#button-save').textContent = 'Update';
@@ -110,6 +111,7 @@ const addContact = function (ev) {
     let phone = document.querySelector('#input-phone').value.trim();
     let btn = document.querySelector('#button-save');
     let dataId = parseInt(btn.getAttribute('data-id'));
+    
     if (fullname && email && phone) {
         obj = {
             id: dataId ? dataId : getUniqueId(),
@@ -143,12 +145,23 @@ const addContact = function (ev) {
             //reflect
             updateList();
         } else {
-            alert('form is duplicated!');
+            showFormError('Form is duplicated!');
         }
     } else {
         //better as a non-modal div that removes itself
-        alert('form not filled in');
+        showFormError('Please fill all the fields');
     }
+}
+const showFormError= function(msg){
+    let errDiv= document.querySelector('.error');
+    errDiv.textContent=msg;
+    errDiv.classList.add('active');
+//    alert(msg);
+}
+const hideFormError= function(){
+      let errDiv= document.querySelector('.error');
+    errDiv.classList.remove('active');
+     errDiv.textContent='';
 }
 const checkDuplicate = function (obj) {
     for (let i = 0; i < contacts.length; a++) {
